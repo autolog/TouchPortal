@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+
+<Devices>
+    <SupportURL>https://forums.indigodomo.com/viewforum.php?f=343</SupportURL>
+    <Device type="relay" id="touchPortal">
+        <Name>Touch Portal Desktop</Name>
+        <ConfigUI>
+            <Field type="textfield" id="host" defaultValue="127.0.0.1" readonly="YES">
+                <Label>Host IP:</Label>
+            </Field>
+
+            <Field type="textfield" id="port" defaultValue="12136" hidden="true"
+                   tooltip="Enter the port for Touch Portal plugins. The default is 12136.">
+                <Label>Port:</Label>
+            </Field>
+
+            <Field type="textfield" id="tp_user_data_folder_path" defaultValue=""
+                   tooltip="Enter the complete path to the Touch Portal root folder (commonly '/Users/username/Documents/TouchPortal').">
+                <Label>Touch Portal Data Folder Location</Label>
+            </Field>
+
+            <Field type="checkbox" id="auto_connect" defaultValue="true">
+                <Label>Automatically connect to Touch Portal Desktop:</Label>
+                <Description/>
+            </Field>
+
+            <Field type="textfield" id="timeout" defaultValue="3" hidden="true"
+                   tooltip="Please enter the number of seconds desired for communication timeout.">
+                <Label>Socket Timeout (seconds):</Label>
+            </Field>
+
+            <Field type="textfield" id="socket_retry_seconds" defaultValue="15"
+                   tooltip="Please enter the number of seconds before the plugin attempts to repair dropped connections.">
+                <Label>Time Between Socket Retries (seconds):</Label>
+            </Field>
+
+            <Field type="textfield" id="socket_retry_silent_after" defaultValue="10"
+                   tooltip="Please enter the number of seconds before the plugin stops logging retry attempts">
+                <Label>Retries Silent After (attempts):</Label>
+            </Field>
+
+            <Field type="separator"  id="separator-1" />
+
+            <Field type="checkbox" id="show_variable_value" defaultValue="true">
+                <Label>Log Variable Value Messages:</Label>
+                <Description/>
+            </Field>
+
+            <!--  PUBLISH ACTION / DEVICE / VARIABLE: COMMON -->
+            <Field type="separator" id="separator-2" />
+
+            <Field type="textfield" id="tp_devices_last_updated_date_time" hidden="true">
+                <Label>TP Device Last Updated:</Label>
+            </Field>
+
+            <Field type="menu" id="tp_devices_list" default="_ADD" readonly="YES" rows="5"
+                   tooltip="Please select Add New Item or select an existing item to edit.">
+                <Label>Add/Update Item:</Label>
+                <List class="self" method="tp_devices_list" dynamicReload="true"/>
+                <CallbackMethod>tp_devices_list_selection</CallbackMethod>
+            </Field>
+
+            <Field type="label" id="update_tp_names_list_label"  alignWithControl="true">
+                <Label>^ To set-up a new item, select 'Add New Item' otherwise select an existing item to update it.</Label>
+            </Field>
+
+            <Field type="textfield" id="new_tp_device" hidden="true" defaultValue="NEW">
+                <Label/>
+            </Field>
+
+            <Field type="textfield" id="new_tp_device_name" visibleBindingId="new_tp_device" visibleBindingValue="NEW"
+                   tooltip="Please enter a name for your item or leave blank to use the Indigo item name.">
+                <Label>Item Name (optional):</Label>
+            </Field>
+
+            <Field type="textfield" id="updated_tp_device_name" visibleBindingId="new_tp_device" visibleBindingValue="EXISTING">
+                <Label>Item Name:</Label>
+            </Field>
+
+            <Field type="label" id="new_updated_tp_device_name_label" alignWithControl="true" visibleBindingId="new_tp_device" visibleBindingValue="NEW, EXISTING">
+                <Label>^ Choose a unique name for the item. Leave it empty to have the name of your selected Indigo Device / Action Group / Variable automatically entered into the field.</Label>
+            </Field>
+
+            <Field type="menu" id="action_device_variable_selection" default="d" dynamicReload="true" visibleBindingId="new_tp_device" visibleBindingValue="NEW, EXISTING"
+                   tooltip="Please select an Indigo item to connect: Action Group, Device, or Variable.">
+                <Label>Indigo Item to Connect:</Label>
+                <List>
+                    <Option value="A">Action Group</Option>
+                    <Option value="D">Device</Option>
+                    <Option value="V">Variable</Option>
+                </List>
+                <CallbackMethod>action_device_variable_selection</CallbackMethod>
+            </Field>
+
+            <Field type="label" id="select_device_dynamic_control" alignWithControl="true" visibleBindingId="new_tp_device" visibleBindingValue="NEW, EXISTING">
+                <Label>The controls below will change based on the option selected above.</Label>
+            </Field>
+
+            <!--  SELECT DEVICE -->
+            <Field type="menu" id="source_device_menu" default="0" visibleBindingId="action_device_variable_selection" visibleBindingValue="D"
+                   tooltip="Please select an Indigo device to publish.">
+                <Label>Indigo Device:</Label>
+                <List class="self" method="devices_with_on_state"/>
+                <CallbackMethod>select_device_to_add_update</CallbackMethod>
+            </Field>
+
+            <!--  TODO: Probably not needed? - Hence hidden. -->
+            <Field type="checkbox" id="source_device_dim_action" hidden="true" visibleBindingId="action_device_variable_selection" visibleBindingValue="D">
+                <Label>Indigo Dim Action:</Label>
+                <Description>Handle Dim as On/Off?</Description>
+            </Field>
+
+            <Field type="checkbox" id="source_device_supports_on_off_state" hidden="true" defaultValue="false">
+                <Label>Supports ON/OFF State:</Label>
+                <Description>Supports ON/OFF State?</Description>
+            </Field>
+
+            <Field type="checkbox" id="create_tp_on_off_state" visibleBindingId="source_device_supports_on_off_state" visibleBindingValue="true">
+                <Label>ON/OFF State:</Label>
+                <Description>Create Touch Portal ON / OFF state?</Description>
+            </Field>
+
+            <Field type="checkbox" id="source_device_supports_brightness_state" hidden="true" defaultValue="false">
+                <Label>Supports Brightness State:</Label>
+                <Description>Supports Brightness State?</Description>
+            </Field>
+
+            <Field type="checkbox" id="create_tp_brightness_state" visibleBindingId="source_device_supports_brightness_state" visibleBindingValue="true">
+                <Label>Brightness State:</Label>
+                <Description>Create Touch Portal Brightness state?</Description>
+            </Field>
+
+            <Field type="checkbox" id="source_device_supports_colourRGB_state" hidden="true" defaultValue="false">
+                <Label>Supports Colour RGB State:</Label>
+                <Description>Supports Colour RGB State?</Description>
+            </Field>
+
+            <Field type="checkbox" id="create_tp_colourRGB_state" visibleBindingId="source_device_supports_colourRGB_state" visibleBindingValue="true">
+                <Label>Colour RGB State:</Label>
+                <Description>Create Touch Portal Colour RGB state?</Description>
+            </Field>
+
+            <!--  SELECT ACTIONS -->
+            <Field type="menu" id="source_action_group_menu" defaultValue="0" visibleBindingId="action_device_variable_selection" visibleBindingValue="A"
+                   tooltip="Please select an Indigo Action Group to publish.">
+                <Label>Indigo Action Group:</Label>
+                <List class="self" method="action_groups_to_list" dynamicReload="true"/>
+                <CallbackMethod>select_action_to_add_update</CallbackMethod>
+            </Field>
+
+            <!--  SELECT VARIABLES -->
+            <Field type="menu" id="source_variable_menu" defaultValue="0" visibleBindingId="action_device_variable_selection" visibleBindingValue="V"
+                   tooltip="Please select an Indigo Variable to publish.">
+                <Label>Indigo Variable:</Label>
+                <List class="self" method="variables_to_list" dynamicReload="true"/>
+                <CallbackMethod>select_variable_to_add_update</CallbackMethod>
+            </Field>
+
+            <Field type="menu" id="variable_state_type" default="N" dynamicReload="true" visibleBindingId="action_device_variable_selection" visibleBindingValue="V">
+                <Label>Create Variable State?</Label>
+                <List>
+                    <Option value="N">No State</Option>
+                    <Option value="B">Bool State</Option>
+                    <Option value="T">Text State</Option>
+                </List>
+                <!--  <CallbackMethod>variable_state_type_selection</CallbackMethod> -->
+            </Field>
+
+            <!--  ADD / UPDATE DEVICE / ACTION GROUPS -->
+            <Field type="button" id="add_new_tp_device" visibleBindingId="new_tp_device" visibleBindingValue="NEW">
+                <Title>Add New Touch Portal Item</Title>
+                <CallbackMethod>add_new_tp_device</CallbackMethod>
+            </Field>
+
+            <Field type="button" id="update_tp_device" visibleBindingId="new_tp_device" visibleBindingValue="EXISTING">
+                <Title>Update Touch Portal Item</Title>
+                <CallbackMethod>update_tp_device</CallbackMethod>
+            </Field>
+
+            <Field type="separator" id="separator-5"/>
+
+            <Field type="label" id="instructions" fontColor="red">
+                <Label>If you click the 'Cancel' button below, any changes made will not be confirmed!</Label>
+            </Field>
+
+            <Field type="label" id="publishedLabel">
+                <Label>Click 'Save' to confirm publication of the items listed below.</Label>
+            </Field>
+
+
+            <Field type="list" id="published_tp_devices_list" rows="5"
+                   tooltip="If you would like to delete one or more published items, select them and then click Delete Item(s)">
+                <Label>Published Items:</Label>
+                <List class="self" method="published_tp_devices_list" dynamicReload="true"/>
+            </Field>
+
+            <Field type="button" id="delete_devices">
+                <Label/>
+                <Title>Delete Item(s)</Title>
+                <CallbackMethod>delete_devices</CallbackMethod>
+            </Field>
+        </ConfigUI>
+        <States>
+            <State id="connection_status">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Connection Status changed</TriggerLabel>
+                <ControlPageLabel>Connection Status</ControlPageLabel>
+            </State>
+
+            <State id="touch_portal_version">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Touch Portal Version changed</TriggerLabel>
+                <ControlPageLabel>Touch Portal Version</ControlPageLabel>
+            </State>
+
+            <State id="touch_portal_sdk_version">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Touch Portal SDK Version changed</TriggerLabel>
+                <ControlPageLabel>Touch Portal SDK Version</ControlPageLabel>
+            </State>
+
+            <State id="touch_portal_plugin_version">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Touch Portal Plugin Version changed</TriggerLabel>
+                <ControlPageLabel>Touch Portal Plugin Version</ControlPageLabel>
+            </State>
+        </States>
+
+        <UiDisplayStateId>onOffState</UiDisplayStateId> -->
+    </Device>
+</Devices>

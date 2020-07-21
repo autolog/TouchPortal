@@ -1,0 +1,4 @@
+Touch Portal Changelog
+
+- V0.2.1 [2020-07-21]
+  Intial release for Indigo Plugin Store

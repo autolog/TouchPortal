@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<PluginConfig>
+    <SupportURL>https://forums.indigodomo.com/viewforum.php?f=343</SupportURL>
+    <Field type="label" id="description" alwaysUseInDialogHeightCalc="true">
+        <Label>A bridge for the Touch Portal multi action remote control service. 😄</Label>
+    </Field>
+
+    <Field type="label" id="copyright" alwaysUseInDialogHeightCalc="true">
+        <Label>© 2020 - Autolog and DaveL17</Label>
+    </Field>
+
+    <Field type="separator" id="separator-1" alwaysUseInDialogHeightCalc="true"/>
+
+    <Field type="label" id="header-1" alwaysUseInDialogHeightCalc="true">
+        <Label>LOGGING</Label>
+    </Field>
+
+    <Field type="checkbox" id="showMessages" defaultValue="false" alwaysUseInDialogHeightCalc="true"
+		   tooltip="Please check the box if you would like to print messages received from the Touch Portal Desktop app to the Indigo Event Log.">
+        <Label>Log Touch Portal Desktop Messages:</Label>
+        <Description/>
+    </Field>
+
+	<Field type="menu" id="eventLogLevel" defaultValue="20" alwaysUseInDialogHeightCalc="true">
+		<Label>Logging Level - Indigo Event Log:</Label>
+		<List>
+			<Option value="5">Verbose Debugging Messages</Option>
+			<Option value="10">Debugging Messages</Option>
+			<Option value="20">Informational Messages</Option>
+			<Option value="30">Warning Messages</Option>
+			<Option value="40">Error Messages</Option>
+			<Option value="50">Critical Errors Only</Option>
+		</List>
+	</Field>
+
+	<Field type="menu" id="pluginLogLevel" defaultValue="20" alwaysUseInDialogHeightCalc="true">
+		<Label>Logging Level - Plugin Event Log:</Label>
+		<List>
+			<Option value="5">Verbose Debugging Messages</Option>
+			<Option value="10">Debugging Messages</Option>
+			<Option value="20">Informational Messages</Option>
+			<Option value="30">Warning Messages</Option>
+			<Option value="40">Error Messages</Option>
+			<Option value="50">Critical Errors Only</Option>
+		</List>
+	</Field>
+</PluginConfig>

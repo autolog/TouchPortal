@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<Actions>
+    <SupportURL>https://forums.indigodomo.com/viewforum.php?f=343</SupportURL>
+    <Action id="update_tp_custom_state_bool" deviceFilter="self">
+        <Name>Update Touch Portal Custom State - Boolean</Name>
+        <ConfigUI>
+            <Field type="menu" id="update_custom_state_id" default="_SELECT" readonly="YES" rows="5"
+                   tooltip="Please select the custom state.">
+                <Label>Update Touch Portal Custom State:</Label>
+                <List class="self" method="action_tp_custom_States_list" dynamicReload="true"/>
+                <CallbackMethod>tp_devices_list_selection</CallbackMethod>
+            </Field>
+
+            <Field type="menu" id="update_state_value"
+                   tooltip="When the action is run, the custom state will be updated with the boolean value selected here.">
+                <Label>to value:</Label>
+                <List>
+                    <Option value="True">True</Option>
+                    <Option value="False">False</Option>
+                </List>
+            </Field>
+        </ConfigUI>
+        <CallbackMethod>action_update_tp_custom_state</CallbackMethod>
+    </Action>
+
+    <Action id="update_tp_custom_state_text" deviceFilter="self">
+        <Name>Update Touch Portal Custom State - Text</Name>
+        <ConfigUI>
+            <Field type="menu" id="update_custom_state_id" default="_SELECT" readonly="YES" rows="5"
+                   tooltip="Please select the custom state.">
+                <Label>Update Touch Portal Custom State:</Label>
+                <List class="self" method="action_tp_custom_States_list" dynamicReload="true"/>
+                <CallbackMethod>tp_devices_list_selection</CallbackMethod>
+            </Field>
+
+            <Field type="textfield" id="update_state_value"
+                   tooltip="When the action is run, the custom state will be updated with the value of the text entered here.">
+                <Label>to value:</Label>
+            </Field>
+        </ConfigUI>
+        <CallbackMethod>action_update_tp_custom_state</CallbackMethod>
+    </Action>
+
+    <Action id="refresh_tp_plugin_states" deviceFilter="self">
+        <Name>Refresh Touch Portal Plugin States</Name>
+        <CallbackMethod>action_refresh_tp_plugin_states</CallbackMethod>
+    </Action>
+</Actions>
