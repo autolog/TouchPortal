@@ -1,4 +1,7 @@
 Touch Portal Changelog
 
+- V0.2.2 [2020-07-22]
+  Bumping version number to force icon update in Indigo Plugin Store
+
 - V0.2.1 [2020-07-21]
   Initial release for Indigo Plugin Store
